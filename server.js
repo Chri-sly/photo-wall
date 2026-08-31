@@ -62,6 +62,12 @@ function requireAdmin(req, res, next) {
   next();
 }
 
+// Verifies an admin password without doing anything destructive — used by the
+// frontend's Admin tab to check credentials before unlocking the panel.
+app.post('/api/admin/verify', requireAdmin, (req, res) => {
+  res.json({ ok: true });
+});
+
 app.get('/api/health', async (req, res) => {
   try {
     await pool.query('SELECT 1');
